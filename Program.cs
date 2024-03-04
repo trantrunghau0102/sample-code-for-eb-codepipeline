@@ -1,9 +1,20 @@
+using Microsoft.AspNetCore.HttpOverrides;
+
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
-app.MapGet("/", () =>
 {
-    return "Hello world";
-});
+    builder.Services.Configure<ForwardedHeadersOptions>(c =>
+    {
+        c.ForwardedHeaders =
+            ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    });
+}
 
-app.Run();
+var app = builder.Build();
+{
+    app.UseForwardedHeaders();
+    app.MapGet("/", () =>
+    {
+        return "Hello world";
+    });
+    app.Run();
+}
