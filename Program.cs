@@ -14,7 +14,7 @@ var app = builder.Build();
     app.UseForwardedHeaders();
     app.MapGet("/", () =>
     {
-        return "Hello world version 2";
+        return "Hello world";
     });
     app.Run();
 }
